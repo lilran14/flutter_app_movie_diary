@@ -1,6 +1,6 @@
-# flutter_app_movie_diary
+# Flutter App - Movie Diary
 
-A new Flutter project.
+A simple movie tracker app made with flutter.
 
 ## Getting Started
 
