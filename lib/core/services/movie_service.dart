@@ -6,9 +6,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 class MovieService {
-  static String key = "?api_key=xxx";
+  static String key = "?api_key=64a414cda94ba2e60873f472077c59b1";
   static String baseUrl = "https://api.themoviedb.org/3";
-  static String imageUrl = "https://image.tmdb.org/t/original";
+  static String imageUrl = "https://image.tmdb.org/t/p/original";
+  static String imageUrlW400 = "https://image.tmdb.org/t/p/w400";
+  static String imageUrlW200 = "https://image.tmdb.org/t/p/w200";
 
   // API
   static String popularApi = "/movie/popular";

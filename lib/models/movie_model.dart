@@ -27,7 +27,7 @@ class MovieModel {
           ? List<int>.from(json["genre_ids"].map((x) => x))
           : null);
 
-  String getGenreName(int id) {
+  static String getGenreName(int id) {
     switch (id) {
       case 28:
         return "Action";

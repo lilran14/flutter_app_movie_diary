@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app_movie_diary/controllers/auth_controller.dart';
+import 'package:flutter_app_movie_diary/core/services/firestore_database.dart';
+import 'package:flutter_app_movie_diary/core/services/movie_service.dart';
 import 'package:flutter_app_movie_diary/core/theme/theme_config.dart';
 import 'package:flutter_app_movie_diary/core/widgets/block_button.dart';
 import 'package:flutter_app_movie_diary/core/widgets/outline_block_button.dart';
+import 'package:flutter_app_movie_diary/models/movie_model.dart';
+import 'package:flutter_app_movie_diary/models/watchlist_model.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -10,6 +16,9 @@ class MoviePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.find();
+    FireStoreDB fireStoreDB = FireStoreDB();
+    MovieModel movieData = Get.arguments;
     return Scaffold(
       appBar: AppBar(
         leading:
@@ -37,7 +46,7 @@ class MoviePage extends StatelessWidget {
                   decoration:
                       BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   child: Image.network(
-                    "https://assets.pikiran-rakyat.com/crop/0x0:0x0/x/photo/2021/06/18/386827737.jpg",
+                    MovieService.imageUrlW400 + movieData.posterPath,
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -45,7 +54,7 @@ class MoviePage extends StatelessWidget {
               SizedBox(
                 height: Gap.defaultPadding,
               ),
-              Text("Ali & Ratu-Ratu Queens",
+              Text(movieData.title,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
@@ -56,7 +65,7 @@ class MoviePage extends StatelessWidget {
               SizedBox(
                 height: Gap.defaultGap / 2,
               ),
-              Text("Lucky Kuswandi",
+              Text(movieData.title,
                   softWrap: false,
                   style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       color: ThemeColor.darkTextVariantColor,
@@ -64,15 +73,18 @@ class MoviePage extends StatelessWidget {
               SizedBox(
                 height: Gap.defaultGap / 2,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Chip(label: Text("Family")),
-                  SizedBox(
-                    width: Gap.defaultGap,
-                  ),
-                  Chip(label: Text("Comedy"))
-                ],
+              Container(
+                height: 50,
+                child: ListView.separated(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => Chip(
+                        label: Text(MovieModel.getGenreName(
+                            movieData.listGenre![index]))),
+                    separatorBuilder: (context, index) => SizedBox(
+                          width: Gap.defaultGap,
+                        ),
+                    itemCount: movieData.listGenre!.length),
               ),
               SizedBox(
                 height: Gap.defaultPadding,
@@ -97,7 +109,7 @@ class MoviePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: Gap.defaultPadding),
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Volutpat consectetur est fringilla commodo. Fermentum adipiscing diam risus natoque eget mi praesent. Ornare sed at malesuada phasellus. ",
+                  movieData.overview,
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                   softWrap: false,
@@ -115,7 +127,10 @@ class MoviePage extends StatelessWidget {
                     Expanded(
                       child: OutlineBlockButton(
                         textButton: "Add to Watchlist",
-                        onPressed: () {},
+                        onPressed: () {
+                          fireStoreDB.addWatchlist(
+                              authController.user.value.id!, movieData);
+                        },
                       ),
                     ),
                     SizedBox(
@@ -123,8 +138,17 @@ class MoviePage extends StatelessWidget {
                     ),
                     Expanded(
                       child: BlockButton(
-                        textButton: "Already Watch",
-                        onPressed: () {},
+                        textButton: "Add to Already Watched",
+                        onPressed: () {
+                          fireStoreDB.addHistory(
+                              authController.user.value.id!,
+                              WatchlistModel(
+                                  movieId: movieData.id,
+                                  title: movieData.title,
+                                  score: movieData.voteAverage,
+                                  imageUrl: movieData.posterPath,
+                                  createdDate: Timestamp.now()));
+                        },
                       ),
                     ),
                   ],
