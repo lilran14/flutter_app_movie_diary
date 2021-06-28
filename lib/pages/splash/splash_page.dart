@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_movie_diary/core/constants/assets_url.dart';
 import 'package:flutter_app_movie_diary/core/theme/theme_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -12,13 +11,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    Future.delayed(Duration(seconds: 2))
-        .then((value) => Get.offAndToNamed("/login"));
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;

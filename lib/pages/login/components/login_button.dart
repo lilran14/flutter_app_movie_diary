@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_movie_diary/controllers/auth_controller.dart';
 import 'package:flutter_app_movie_diary/core/theme/theme_config.dart';
 import 'package:flutter_app_movie_diary/core/widgets/block_button_with_icon.dart';
 import 'package:get/get.dart';
@@ -29,11 +30,15 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthController authController = Get.find();
     return BlockButtonWithIcon(
       textButton: "Login With Google",
       icon: Icon(LineIcons.googlePlus),
-      onPressed: () {
-        Get.offAllNamed("/home");
+      onPressed: () async {
+        var login = await authController.signIn();
+        if (login == isLogin.login) {
+          Get.offAllNamed("/home");
+        }
       },
     );
   }

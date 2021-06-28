@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_movie_diary/controllers/auth_controller.dart';
 import 'package:flutter_app_movie_diary/core/theme/theme_config.dart';
 import 'package:flutter_app_movie_diary/core/widgets/block_button.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
+    AuthController authController = Get.find();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -28,31 +29,50 @@ class ProfilePage extends StatelessWidget {
               height: deviceSize.height * 0.1,
             ),
             Center(
-              child: CircleAvatar(
-                radius: deviceSize.width * 0.2,
-              ),
+              child: Obx(() {
+                if (authController.user.value.imageUrl == null) {
+                  return CircleAvatar(
+                    radius: deviceSize.width * 0.2,
+                    backgroundColor: ThemeColor.accentColor,
+                    child: Text(authController.user.value.name!.substring(0, 1),
+                        style: Theme.of(context).textTheme.headline5!.copyWith(
+                            fontWeight: FontWeight.w200, fontSize: 42)),
+                  );
+                } else {
+                  return CircleAvatar(
+                      radius: deviceSize.width * 0.2,
+                      backgroundColor: Colors.blue,
+                      child: ClipOval(
+                        child: Image.network(
+                          authController.user.value.imageUrl!,
+                          fit: BoxFit.fitWidth,
+                          width: deviceSize.width * 0.2 * 2,
+                        ),
+                      ));
+                }
+              }),
             ),
             SizedBox(
               height: Gap.defaultPadding,
             ),
-            Text("LilRan4",
+            Obx(() => Text(authController.user.value.name!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,
                 style: Theme.of(context)
                     .textTheme
                     .headline5!
-                    .copyWith(fontWeight: FontWeight.bold)),
+                    .copyWith(fontWeight: FontWeight.bold))),
             SizedBox(
               height: Gap.defaultGap / 2,
             ),
-            Text("radans.works@gmail.com",
+            Obx(() => Text(authController.user.value.email!,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 softWrap: false,
                 style: Theme.of(context).textTheme.subtitle1!.copyWith(
                     color: ThemeColor.darkTextVariantColor,
-                    fontWeight: FontWeight.w300)),
+                    fontWeight: FontWeight.w300))),
             SizedBox(
               height: deviceSize.height * 0.1,
             ),
@@ -128,7 +148,10 @@ class ProfilePage extends StatelessWidget {
               padding: EdgeInsets.all(Gap.defaultPadding),
               child: BlockButton(
                 textButton: "Log Out",
-                onPressed: () => Get.offAllNamed("/login"),
+                onPressed: () async {
+                  await authController.signOut();
+                  Get.offAllNamed("/login");
+                },
               ),
             ),
             Spacer(),
