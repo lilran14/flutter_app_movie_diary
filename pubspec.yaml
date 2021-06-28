@@ -34,7 +34,9 @@ dependencies:
   google_fonts: ^2.1.0
   google_sign_in: ^5.0.4
   http: ^0.13.3
+  intl: ^0.17.0
   line_icons: ^2.0.1
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:
