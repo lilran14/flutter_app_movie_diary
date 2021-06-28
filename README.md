@@ -2,15 +2,60 @@
 
 A simple movie tracker app made with flutter.
 
-## Getting Started
+## Screenshots & Demo
 
-This project is a starting point for a Flutter application.
+### Demo :
 
-A few resources to get you started if this is your first Flutter project:
+### ScreenShots :
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![01 - Splash](https://user-images.githubusercontent.com/85271559/123670504-7d477c00-d867-11eb-9265-15de604b1203.png)
+![02 - Login](https://user-images.githubusercontent.com/85271559/123670508-7e78a900-d867-11eb-829a-84b77943a3ef.png)
+![02 1 - Login Email Select](https://user-images.githubusercontent.com/85271559/123670512-7f113f80-d867-11eb-8bcc-b3c992a81e37.png)
+![03 - Home](https://user-images.githubusercontent.com/85271559/123670517-7f113f80-d867-11eb-801d-e4fb6a9630e4.png)
+![04 - Watchlist](https://user-images.githubusercontent.com/85271559/123670520-80db0300-d867-11eb-930c-de44116f8245.png)
+![05 - History](https://user-images.githubusercontent.com/85271559/123670522-81739980-d867-11eb-99c7-a7315598f913.png)
+![06- Profile](https://user-images.githubusercontent.com/85271559/123670525-81739980-d867-11eb-9603-9a80421f5277.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+## Feature
+
+### Done :
+
+#### Firebase Google Sign-In  ✅
+
+#### Movie Recommendation :
+
+* Popular Movies ✅
+
+* Top Rated Movies ✅
+
+* Upcoming Movies ✅
+
+* Now Playing Movies ✅
+
+#### Add Movie to Watchlist  ✅
+
+#### Already Watched Movie List (History) ✅
+
+### To Do :
+
+* [ ] See All List
+* [ ] Alert Message (Both Error & Success)
+* [ ] Movie Reminder (Notification) to Wath
+* [ ] Watchtime History Chart
+* [ ] Wathlist & Movie Count
+
+## Tech
+* MVC Architecture with GetX Framework
+* Login : Firebase Auth - Google SignIn
+* Database : Firebase Cloud Firestore
+* State management : GetX
+
+## Package
+
+[All Package Here](pubspec.yaml)
+
+## Credits
+
+* [Roboto Font by Christian Robertson](https://fonts.google.com/specimen/Roboto)
