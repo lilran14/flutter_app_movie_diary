@@ -28,7 +28,7 @@ class BottomNavHomeMain extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: Icon(LineIcons.gratipayGittip), label: "Watchlist"),
               BottomNavigationBarItem(
-                  icon: Icon(LineIcons.history), label: "History")
+                  icon: Icon(LineIcons.history), label: "Watch History")
             ]),
       ),
     );

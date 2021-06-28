@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_movie_diary/controllers/list_movie_controller.dart';
 import 'package:flutter_app_movie_diary/core/theme/theme_config.dart';
 import 'package:flutter_app_movie_diary/pages/main/pages/home/components/movie_list.dart';
 import 'package:flutter_app_movie_diary/pages/main/pages/home/components/section_title.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -10,6 +12,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ListMovieController popularMovie = Get.find(tag: "Popular");
+    ListMovieController nowMovie = Get.find(tag: "NowPlaying");
+    ListMovieController topMovie = Get.find(tag: "TopRated");
+    ListMovieController upMovie = Get.find(tag: "UpComing");
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Container(
@@ -22,22 +28,74 @@ class HomePage extends StatelessWidget {
               title: "Now Playing",
               onPressed: () {},
             ),
-            MovieList(),
+            Obx(() {
+              if (nowMovie.isLoading.value == true) {
+                return MovieList(
+                  listMovie: [],
+                );
+              } else if (nowMovie.isLoading.value == false &&
+                  nowMovie.isError.value == true) {
+                return SizedBox();
+              } else {
+                return MovieList(
+                  listMovie: nowMovie.listMovie,
+                );
+              }
+            }),
             SectionTitle(
               title: "Up Coming",
               onPressed: () {},
             ),
-            MovieList(),
+            Obx(() {
+              if (upMovie.isLoading.value == true) {
+                return MovieList(
+                  listMovie: [],
+                );
+              } else if (upMovie.isLoading.value == false &&
+                  upMovie.isError.value == true) {
+                return SizedBox();
+              } else {
+                return MovieList(
+                  listMovie: upMovie.listMovie,
+                );
+              }
+            }),
             SectionTitle(
               title: "Popular",
               onPressed: () {},
             ),
-            MovieList(),
+            Obx(() {
+              if (popularMovie.isLoading.value == true) {
+                return MovieList(
+                  listMovie: [],
+                );
+              } else if (popularMovie.isLoading.value == false &&
+                  popularMovie.isError.value == true) {
+                return SizedBox();
+              } else {
+                return MovieList(
+                  listMovie: popularMovie.listMovie,
+                );
+              }
+            }),
             SectionTitle(
               title: "Top Rated",
               onPressed: () {},
             ),
-            MovieList()
+            Obx(() {
+              if (topMovie.isLoading.value == true) {
+                return MovieList(
+                  listMovie: [],
+                );
+              } else if (topMovie.isLoading.value == false &&
+                  topMovie.isError.value == true) {
+                return SizedBox();
+              } else {
+                return MovieList(
+                  listMovie: topMovie.listMovie,
+                );
+              }
+            }),
           ],
         ),
       ),
