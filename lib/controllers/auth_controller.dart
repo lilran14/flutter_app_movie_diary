@@ -49,6 +49,7 @@ class AuthController extends GetxController {
   }
 
   signOut() async {
+    await GoogleSignIn().signOut();
     await firebaseAuth.signOut();
   }
 
