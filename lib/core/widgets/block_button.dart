@@ -20,7 +20,11 @@ class BlockButton extends StatelessWidget {
         onPressed: onPressed,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Theme.of(context).accentColor,
-        child: Text(textButton, style: Theme.of(context).textTheme.button),
+        child: Text(
+          textButton,
+          style: Theme.of(context).textTheme.button,
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
