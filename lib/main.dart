@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_movie_diary/core/routes/app_route.dart';
+import 'package:flutter_app_movie_diary/core/services/firebase.dart';
 import 'package:flutter_app_movie_diary/core/theme/app_theme.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initialization;
   runApp(MyApp());
 }
 
