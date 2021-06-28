@@ -8,8 +8,12 @@ import 'package:get/get.dart';
 
 class AppRoute {
   static List<GetPage> pages = [
-    GetPage(name: "/splash", page: () => SplashPage()),
-    GetPage(name: "/login", page: () => LoginPage()),
+    GetPage(
+        name: "/splash", page: () => SplashPage(), binding: SplashBinding()),
+    GetPage(
+      name: "/login",
+      page: () => LoginPage(),
+    ),
     GetPage(name: "/home", page: () => MainPage(), binding: MainPageBinding()),
     GetPage(name: "/profile", page: () => ProfilePage()),
     GetPage(name: "/movie", page: () => MoviePage()),
